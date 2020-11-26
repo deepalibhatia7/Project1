@@ -1,0 +1,84 @@
+<div class="main">
+    <div class="row">
+        <div class="col">
+            <div class="list-group">
+                <div class="heading">
+                    <div class="col gutter-col" >
+                        <div class="title ml-1">Flight Details</div>
+                    </div>
+                    <div class=" subcol col no-gutters" >
+                        <div class="title">EconomyPrice</div>
+                    </div>
+                    <div class="subcol col no-gutters" >
+                        <div class="title">BusinessPrice</div>
+                    </div>
+                </div>
+                <div *ngFor="let flight of flights|orderBy: order:reverse">
+                    <button type="button" class="list-group-item list-group-item-action" (click)="selectFlight(flight)">
+                        <div class="row gutter-row">
+                            <div class="col gutter-col ">
+                                <div class="text-muted"><b>{{flight.SourceId}}-{{flight.DestinationId}}</b></div>
+                                <div class="row">
+                                    <h5 class="mb-1"><b>{{flight.DepartTime| timeTransform: flight.DepartTime}}-{{flight.ArrivalTime| timeTransform:flight.ArrivalTime}}</b></h5>    
+                                    &nbsp;<h5 class="mb-1"><b>{{flight.FlightId}}</b></h5>
+                                </div><br>
+                                
+                            </div>
+                            <div class="subcol col no-gutters">
+                                <h5 class="mb-1"><b>&#8377;{{flight.EconomyPrice}}</b></h5>
+                            </div>
+                            <div class="subcol col no-gutters">
+                                <h5 class="mb-1"><b>&#8377;{{flight.BusinessPrice}}</b></h5>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                <div class="row" *ngIf="flights.length==0">
+                    <div class="title ml-1">NO FLIGHTS FOUND</div>
+                </div>
+            </div>
+        </div>
+        <div class="col" *ngIf="isReturn">
+            <div class="list-group">
+                <div class="heading">
+                    <div class="col gutter-col" >
+                        <div class="title ml-1">Flight Details</div>
+                    </div>
+                    <div class=" subcol col no-gutters" >
+                        <div class="title">EconomyPrice</div>
+                    </div>
+                    <div class="subcol col no-gutters" >
+                        <div class="title">BusinessPrice</div>
+                    </div>
+                </div>
+                <div *ngFor="let flight of returnFlights|orderBy: order2:reverse2">
+                    <button type="button" class="list-group-item list-group-item-action"(click)="selectReturnFlight(flight)">
+                        <div class="row gutter-row">
+                            <div class="col gutter-col ">
+                                <div class="text-muted"><b>{{flight.SourceId}}-{{flight.DestinationId}}</b></div>
+                                <div class="row">
+                                    <h5 class="mb-1"><mat-icon [inline]="true">schedule</mat-icon><b>{{flight.DepartTime| timeTransform: flight.DepartTime}}-{{flight.ArrivalTime| timeTransform:flight.ArrivalTime}}</b></h5>
+                                    &nbsp;<h5 class="mb-1"><b><mat-icon [inline]="true">flight_land</mat-icon>{{flight.FlightId}}</b></h5>
+                                </div><br>
+                            </div>
+                            <div class="subcol col no-gutters">
+                                <h5 class="mb-1"><b>&#8377;{{flight.EconomyPrice}}</b></h5>
+                            </div>
+                            <div class="subcol col no-gutters">
+                                <h5 class="mb-1"><b>&#8377;{{flight.BusinessPrice}}</b></h5>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                <div class="row" *ngIf="returnFlights.length==0"><div class="title ml-1">NO RETURN FLIGHTS FOUND</div>
+                </div>
+            </div>  
+            
+        </div>
+    </div>
+    <div class="row"><button mat-raised-button color="primary" class="continue" data-toggle="modal" data-target="#myModal" *ngIf="selected && (returnSelected || (!returnSelected&&!isReturn))" >BOOK</button></div>     
+</div>
+
+
+
+
